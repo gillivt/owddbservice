@@ -49,7 +49,7 @@ class Instructor extends DatabaseObject {
         return !empty($result_array) ? true : false;
     }
     
-    public function instructor($adinumber="") {
+    public static function retrieve($adinumber="") {
         global $database;
         
         $sql = "SELECT * FROM ".static::$table_name." ";

@@ -56,8 +56,9 @@ class InstructorUpload extends DatabaseObject {
      * @param type $adinumber
      * @return type
      */
-    public static function instructor($adinumber) {
+    public static function retrieve($adinumber) {
         global $database;
+        global $table_name;
                 
         $sql = "SELECT * FROM ".static::$table_name." ";
         $sql .= "WHERE adinumber = '{$adinumber}' ";

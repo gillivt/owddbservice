@@ -13,11 +13,11 @@ class OwdUser extends DatabaseObject {
     public $email;
     public $databaseuserid;
     
-    public static function owdUser($userid){
+    public static function retrieve($userid){
         global $database;
         
-        $sql = "SELECT * FROM ".$table_name." ";
-        $sql .= "WHERE $databaseuserid = '{$userid}' ";
+        $sql = "SELECT * FROM ".static::$table_name." ";
+        $sql .= "WHERE databaseuserid = '{$userid}' ";
         $sql .= "LIMIT 1";
         $result_array = self::find_by_sql($sql);
         return array_shift($result_array);

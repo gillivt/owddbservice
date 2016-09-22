@@ -87,7 +87,7 @@ class OWDDBController {
     }
     
     /**
-     * 
+     * Register Instructor
      * @param type $data
      * @return type
      * @throws RestException
@@ -117,7 +117,7 @@ class OWDDBController {
         }
         
         //Get instructor upload data
-        $instructorUpload = InstructorUpload::instructor($adinumber);
+        $instructorUpload = InstructorUpload::retrieve($adinumber);
         
         //create salted password hash
         $saltLength = 32;
@@ -190,7 +190,7 @@ class OWDDBController {
         $token = "Basic ".base64_encode($username.":".$password);
         
         // get owdUser
-        $owdUser = OwdUser::owdUser($user->id);
+        $owdUser = OwdUser::retrieve($user->id);
         return array("token"=>$token, "name"=>$owdUser->fullname);
         //return array("token"=>$token, "name"=>$owdUser->fullname);
     }
@@ -215,7 +215,7 @@ class OWDDBController {
         $token = "Basic ".base64_encode($adinumber.":".$password);
         
         // get instructor
-        $instructor = Instructor::instructor($adinumber);
+        $instructor = Instructor::retrieve($adinumber);
         return array("token"=>$token, "name"=>$instructor->fullname);
     }
     /**
