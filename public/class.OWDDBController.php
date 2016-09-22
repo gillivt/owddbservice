@@ -95,10 +95,10 @@ class OWDDBController {
      */
     public function instructorRegistration($data) {
         //authenticate user
-        $user= $this->authenticate();
-        if ($user->role !== "admin") {
-            throw new RestException(401, "Unauthorised");
-        }
+//        $user= $this->authenticate();
+//        if ($user->role !== "admin") {
+//            throw new RestException(401, "Unauthorised");
+//        }
         
         // parameters
         $adinumber = $data->adinumber;
@@ -163,7 +163,7 @@ class OWDDBController {
         $instructor->areascovered = $instructorUpload->areascovered;
         $instructor->radius = $instructorUpload->radius;
         $instructor->bankdetails = $instructorUpload->bankdetails;
-        $instructor->datbaseuserid = $user->id;
+        $instructor->databaseuserid = $user->id;
         if (!$instructor->save()) {
             throw new RestException(400, 'Unknown Error');
         }

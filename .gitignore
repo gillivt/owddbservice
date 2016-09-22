@@ -47,6 +47,6 @@ Temporary Items
 .apdisk
 
 # App Specific Stuff
-jpg/
-pdf/
-
+public/jpg/**
+public/pdf/**
+public/test.php
