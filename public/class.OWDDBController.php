@@ -151,23 +151,26 @@ class OWDDBController {
         $instructor->county = $instructorUpload->county;
         $instructor->postcode = $instructorUpload->postcode;
         $instructor->adinumber = $instructorUpload->adinumber;
-        $instructor->hourlyrate = $instructorUpload->hourlyrate;
-        $instructor->hours_5 = $instructorUpload->hours_5;
-        $instructor->hours_10 = $instructorUpload->hours_10;
-        $instructor->hours_20 = $instructorUpload->hours_20;
-        $instructor->hours_30 = $instructorUpload->hours_30;
-        $instructor->hours_40 = $instructorUpload->hours_40;
+        $instructor->hourlyrate = (float)$instructorUpload->hourlyrate;
+        $instructor->hours_5 = (float)$instructorUpload->hours_5;
+        $instructor->hours_10 = (float)$instructorUpload->hours_10;
+        $instructor->hours_20 = (float)$instructorUpload->hours_20;
+        $instructor->hours_30 = (float)$instructorUpload->hours_30;
+        $instructor->hours_40 = (float)$instructorUpload->hours_40;
         $instructor->makeandmodel = $instructorUpload->makeandmodel;
         $instructor->transmission = $instructorUpload->transmission;
         $instructor->fueltype = $instructorUpload->fueltype;
         $instructor->areascovered = $instructorUpload->areascovered;
-        $instructor->radius = $instructorUpload->radius;
+        $instructor->radius = (int)$instructorUpload->radius;
         $instructor->bankdetails = $instructorUpload->bankdetails;
-        $instructor->databaseuserid = $user->id;
+        $instructor->databaseuserid = (int)$user->id;
         if (!$instructor->save()) {
             throw new RestException(400, 'Unknown Error');
         }
-        return array("registration"=>"success");
+        $instructor->id = (int)$instructor->id;
+        $instructor->lastinvoicenumber = 0;
+        $instructor->token = $token;
+        return $instructor;
     }
     
     /**
@@ -216,7 +219,18 @@ class OWDDBController {
         
         // get instructor
         $instructor = Instructor::retrieve($adinumber);
-        return array("token"=>$token, "name"=>$instructor->fullname);
+        $instructor->id = (int)$instructor->id;
+        $instructor->hourlyrate = (float)$instructor->hourlyrate;
+        $instructor->hours_5 = (float)$instructor->hours_5;
+        $instructor->hours_10 = (float)$instructor->hours_10;
+        $instructor->hours_20 = (float)$instructor->hours_20;
+        $instructor->hours_30 = (float)$instructor->hours_30;
+        $instructor->hours_40 = (float)$instructor->hours_40;
+        $instructor->radius = (int)$instructor->radius;
+        $instructor->lastinvoicenumber = (int)$instructor->lastinvoicenumber;
+        $instructor->databaseuserid = (int)$instructor->databaseuserid;
+        $instructor->token = $token;
+        return $instructor;
     }
     /**
      * Stores the uploaded csv file for instructors
